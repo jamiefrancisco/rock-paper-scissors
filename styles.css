@@ -70,6 +70,18 @@ padding-top: 50px;
 
 }
 
+.change-game-button {
+  padding: 10px;
+  color: #FFFFFF;
+  background-color: #475376;
+}
+
+.change-game-button:hover {
+  cursor: pointer;
+  padding: 10px;
+  color: #475376;
+  background-color: #FFFFFF;
+}
 
 .computer-player-container, .user-player-container {
   display: flex;
@@ -92,4 +104,26 @@ padding-top: 50px;
 .user-wins, .computer-wins {
   padding: 20px;
   font-size: larger;
+}
+.fighter-container {
+  padding: 100px;
+}
+.choose-fighter-button {
+  background-color: #8499C5;
+  border: none;
+  
+}
+.choose-fighter-button:hover {
+  cursor: pointer;
+  background-color: #FFFFFF;
+  border: none;
+
+  
+}
+.fighter-icon {
+width: 60%;
+
+}
+.hidden {
+  display:none;
 }
