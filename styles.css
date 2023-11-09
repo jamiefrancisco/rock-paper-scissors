@@ -1,0 +1,95 @@
+/*
+Rock (Granite Gray): #505050
+Paper (Crisp White): #FFFFFF
+Scissors (Earthy Green): #4CAF50
+Background (Slate Blue): #6A7EAD
+Accent (Rust Red): #D94E4E
+*/
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  /* font-family: 'New Rocker', sans-serif; */
+  background-color: #6A7EAD;
+  margin: 0;
+  height: 100vh;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 1;
+}
+
+h1 {
+  font-size: 70px;
+  color: #FFFFFF;
+  padding-top: 40px;
+}
+
+h2 {
+  font-size: 25px;
+  color: #FFFFFF;
+  padding-top: 10px;
+}
+
+.button-header {
+  display: inline-block;
+  font-family: 'New Rocker';
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+
+}
+
+.game-mode-container {
+display: flex;
+flex-direction: column;
+padding-top: 50px;
+
+}
+
+.game-mode-button {
+  background-color:#505050;
+  font-size: 1rem;
+  color: #FFFFFF;
+  margin: 15px;
+  cursor: pointer;
+  padding: 20px;
+}
+
+.game-mode-button:hover {
+  background-color: #FFFFFF;
+  color: #505050;
+
+}
+
+
+.computer-player-container, .user-player-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 15%;
+  box-sizing: border-box;
+  flex: 0 0 auto; 
+  background-color: #8499C5;
+  padding-top: 40px;
+  font-size: large;
+  color: #FFFFFF;
+}
+
+.player-emoji {
+  text-align: center;
+  font-size: xx-large;
+}
+
+.user-wins, .computer-wins {
+  padding: 20px;
+  font-size: larger;
+}
