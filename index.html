@@ -1,48 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="./styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=New+Rocker&display=swap" rel="stylesheet">
-    <title>Rock Paper Scissors</title>
-  </head>
-  <body>
-    <aside class="user-player-container">
-      <div class="player-emoji">
-        🙋‍♀️<br>
-        User</div>
-      <p class="user-wins">Wins: 0</p>
-    </aside>
-    <main>
-      <h1 class="main-title">Rock, Paper, Scissors</h1>
-      <h2>Choose your game mode!</h2>
-      <section class="game-mode-container">
-          <button class="game-mode-button" id="classicGameButton"> 
-            <span class="button-header"><p>🪨 CLASSIC 📃</p></span><br>
-            <p>rock > scissors<br>
-            paper > rock<br>
-            scissors > paper</p>
-          </button>
-          <button class="game-mode-button" id="hardGameButton"> 
-            <span class="button-header"><p>🪨 HARD MODE 📃</p></span><br>
-            <p>rock > scissors<br>
-            paper > rock<br>
-            scissors > paper</p>
-          </button>
 
-      </section>
-     
-    </main>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=New+Rocker&display=swap" rel="stylesheet">
+  <a href="https://www.flaticon.com/free-icons/rock-paper-scissors" class="hidden"
+    title="rock paper scissors icons">Rock paper scissors icons created by iconading - Flaticon</a>
+  <a href="https://www.flaticon.com/free-icons/fist" class="hidden" title="fist icons">Fist icons created by Voysla -
+    Flaticon</a>
+  <title>Rock Paper Scissors</title>
+</head>
 
-    <aside class="computer-player-container">
-      <div class="player-emoji">
-        💻<br>
-        Computer</div>
-      <p class="computer-wins">Wins: 0</p>
-    </aside>
-  </body>
+<body>
+  <aside class="user-player-container">
+    <div class="player-emoji">
+      🙋‍♀️<br>
+      User</div>
+    <p class="user-wins">Wins: 0</p>
+    <button type="button" class="change-game-button">CHANGE GAME?
+    </button>
+  </aside>
+  <main>
+    <h1 class="main-title">Rock, Paper, Scissors</h1>
+    <h2 class="choose-mode-message">Choose your game mode!</h2>
+    <h2 class="choose-fighter-message hidden">Choose your fighter!</h2>
+    <h2 class="result-message hidden"></h2>
+    <section class="game-mode-container">
+      <button type="button" class="game-mode-button" id="classicGameButton">
+        <span class="button-header">
+          <p>🪨 CLASSIC 📃</p>
+        </span><br>
+        <p>rock > scissors<br>
+          paper > rock<br>
+          scissors > paper</p>
+      </button>
+      <button type="button" class="game-mode-button" id="hardGameButton">
+        <span class="button-header">
+          <p>🪨 HARD MODE 📃</p>
+        </span><br>
+        <p>rock > scissors<br>
+          paper > rock<br>
+          scissors > paper</p>
+      </button>
+    </section>
+    <section class="fighter-container hidden">
+      <button type="button" class="choose-fighter-button">
+        <img class="fighter-icon" src="assets/fist.png" alt="rock-image">
+      </button>
+      <button type="button" class="choose-fighter-button">
+        <img class="fighter-icon" src="assets/hand-paper.png" alt="paper-image">
+      </button>
+      <button type="button" class="choose-fighter-button">
+        <img class="fighter-icon" src="assets/scissors.png" alt="scissors-image">
+      </button>
+    </section>
+    <section class="winner-container hidden">
+
+    </section>
+  </main>
+
+  <aside class="computer-player-container">
+    <div class="player-emoji">
+      💻<br>
+      Computer</div>
+    <p class="computer-wins">Wins: 0</p>
+  </aside>
+</body>
 
 
 
