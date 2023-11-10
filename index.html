@@ -20,7 +20,7 @@
       🙋‍♀️<br>
       User</div>
     <p class="user-wins">Wins: 0</p>
-    <button type="button" class="change-game-button">CHANGE GAME?
+    <button type="button" class="change-game-button hidden">CHANGE GAME?
     </button>
   </aside>
   <main>
@@ -37,7 +37,7 @@
           paper > rock<br>
           scissors > paper</p>
       </button>
-      <button type="button" class="game-mode-button" id="hardGameButton">
+      <button type="button" class="game-mode-button" id="variantGameButton">
         <span class="button-header">
           <p>🪨 HARD MODE 📃</p>
         </span><br>
@@ -48,13 +48,13 @@
     </section>
     <section class="fighter-container hidden">
       <button type="button" class="choose-fighter-button">
-        <img class="fighter-icon" src="assets/fist.png" alt="rock-image">
+        <img class="fighter-icon" id="rockIcon" src="assets/fist.png" alt="rock-image">
       </button>
       <button type="button" class="choose-fighter-button">
-        <img class="fighter-icon" src="assets/hand-paper.png" alt="paper-image">
+        <img class="fighter-icon" id="paperIcon" src="assets/hand-paper.png" alt="paper-image">
       </button>
       <button type="button" class="choose-fighter-button">
-        <img class="fighter-icon" src="assets/scissors.png" alt="scissors-image">
+        <img class="fighter-icon" id="scissorsIcon" src="assets/scissors.png" alt="scissors-image">
       </button>
     </section>
     <section class="winner-container hidden">
@@ -68,6 +68,7 @@
       Computer</div>
     <p class="computer-wins">Wins: 0</p>
   </aside>
+  <script src="./main.js"></script>
 </body>
 
 
