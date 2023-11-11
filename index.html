@@ -26,8 +26,8 @@
   <main>
     <h1 class="main-title">Rock, Paper, Scissors</h1>
     <header class="message-container">
-      <h2 class="choose-mode-message">Choose your game mode!</h2>
-      <h2 class="choose-fighter-message hidden">Choose your fighter!</h2>
+      <p class="choose-mode-message">Choose your game mode!</p>
+      <p class="choose-fighter-message hidden">Choose your fighter!</p>
     </header>
     <section class="game-mode-container">
       <button type="button" class="game-mode-button" id="classicGameButton">
@@ -48,18 +48,23 @@
       </button>
     </section>
     <section class="fighter-container hidden">
-      <button type="button" class="choose-fighter-button">
-        <img class="fighter-icon" id="rockIcon" src="assets/fist.png" alt="rock-image">
+      <button type="button" class="choose-fighter-button" data-fighter="rock">
+        <img class="fighter-icon" id="rockIcon" src="assets/rock.png" alt="rock-image">
       </button>
-      <button type="button" class="choose-fighter-button">
-        <img class="fighter-icon" id="paperIcon" src="assets/hand-paper.png" alt="paper-image">
+      <button type="button" class="choose-fighter-button" data-fighter="paper">
+        <img class="fighter-icon" id="paperIcon" src="assets/paper.png" alt="paper-image">
       </button>
-      <button type="button" class="choose-fighter-button">
+      <button type="button" class="choose-fighter-button" data-fighter="scissors">
         <img class="fighter-icon" id="scissorsIcon" src="assets/scissors.png" alt="scissors-image">
       </button>
     </section>
-    <section class="winner-container hidden">
-
+    <section class="winner-container hidden" id="winnerContainer">
+      <div class="fighter-icon-container">
+        <img id="userFighterIcon" src="" alt="">
+      </div>
+      <div class="fighter-icon-container">
+        <img id="computerFighterIcon" src="" alt="">
+      </div>
     </section>
   </main>
 

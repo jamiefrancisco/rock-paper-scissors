@@ -1,16 +1,19 @@
 // Query Selectors
-
 var gameModeContainer = document.querySelector('.game-mode-container');
 var fighterContainer = document.querySelector('.fighter-container');
 var messageContainer = document.querySelector('.message-container');
 var chooseModeMessage = document.querySelector('.choose-mode-message');
 var chooseFighterMessage = document.querySelector('.choose-fighter-message');
+var winnerMessage = document.querySelector('.winner-message');
 var changeGameButton = document.querySelector('.change-game-button');
-var userWins = document.querySelector('.user-wins');
-var computerWins = document.querySelector('.computer-wins');
+var userWinsDisplayed = document.querySelector('.user-wins');
+var computerWinsDisplayed = document.querySelector('.computer-wins');
+// var rockIcon = document.getElementById("rockIcon");
+// var paperIcon = document.getElementById("paperIcon");
+// var scissorsIcon = document.getElementById("scissorsIcon");
+
+
 var winner = "";
-
-
 var user = {};
 var computer = {};
 var gameType;
@@ -20,7 +23,7 @@ var userFighter;
 
 // Event Listeners
 
-window.addEventListener('load', function () {
+document.addEventListener('DOMContentLoaded', function () {
   user = createPlayer('User', '🙋‍♀️');
   computer = createPlayer('Computer', '💻');
 });
@@ -30,66 +33,41 @@ gameModeContainer.addEventListener('click', function (event) {
     gameType = 'Classic'
     toggle(gameModeContainer);
     toggle(fighterContainer);
-    toggle(changeGameButton);
     toggle(chooseFighterMessage);
     toggle(chooseModeMessage);
   } else if (event.target.closest('#variantGameButton')) {
     gameType = 'Variant'
     toggle(gameModeContainer);
     toggle(fighterContainer);
-    toggle(changeGameButton);
     toggle(chooseFighterMessage);
     toggle(chooseModeMessage);
   }
 });
 
 fighterContainer.addEventListener('click', function (event) {
-  if (event.target.closest('#rockIcon')) {
-    userFighter = 'rock';
-    createGameBoard(gameType);
-    // console.log("gameBoard: ", gameBoard);
-    createGame(user, computer, gameBoard, gameType)
-    // console.log("game: ", game);
-    // console.log(user.wins);
+  var clickedFighter = event.target.closest('.choose-fighter-button');
+  if (clickedFighter) {
+    console.log("clickedFighter:", clickedFighter);
+    console.log("clickedFighter dataset:", clickedFighter.dataset);
+    createGame(user, computer, gameBoard, gameType, clickedFighter);
+    console.log("game: ", game);
+    displayFighters(game);
+    console.log(user.wins)
+    console.log(computer.wins)
     checkWinConditions(game);
-    // console.log(user.wins);
-    // console.log(computer.wins);
+    console.log(user.wins);
+    console.log(computer.wins);
     resetGameBoard();
-    // console.log(game);
-  } else if (event.target.closest('#paperIcon')) {
-    userFighter = 'paper';
-    createGameBoard(gameType);
-    // console.log("gameBoard: ", gameBoard);
-    createGame(user, computer, gameBoard, gameType)
-    // console.log("game: ", game);
-    // console.log(user.wins);
-    checkWinConditions(game);
-    // console.log(user.wins);
-    // console.log(computer.wins);
-    resetGameBoard();
-    // console.log(game);
-  } else if (event.target.closest('#scissorsIcon')) {
-    userFighter = 'scissors';
-    createGameBoard(gameType);
-    // console.log("gameBoard: ", gameBoard);
-    createGame(user, computer, gameBoard, gameType)
-    // console.log("game: ", game);
-    // console.log(user.wins);
-    checkWinConditions(game);
-    // console.log(user.wins);
-    // console.log(computer.wins);
-    resetGameBoard();
-    // console.log(game);
-  }
-
-  ;
+    console.log(game);
+    show(changeGameButton);
+  } 
 });
 
 changeGameButton.addEventListener('click', function () {
-  toggle(fighterContainer);
-  toggle(gameModeContainer);
-  toggle(chooseFighterMessage);
-  toggle(chooseModeMessage);
+  messageContainer.innerHTML = chooseModeMessage.innerHTML;
+  hide(winnerContainer);
+  show(gameModeContainer);
+  show(chooseFighterMessage);
   toggle(changeGameButton);
 
 });
@@ -121,7 +99,7 @@ function createGameBoard(gameType) {
 }
 
 
-function createGame(user, computer, gameBoard, gameType) {
+function createGame(user, computer, gameBoard, gameType, clickedFighter) {
   gameBoard = createGameBoard(gameType)
   game = {
     user: user,
@@ -129,16 +107,28 @@ function createGame(user, computer, gameBoard, gameType) {
     gameBoard: gameBoard,
     gameType: gameType
   }
-  selectFighters(userFighter, game);
+  console.log("createGame clickedFighter:", clickedFighter);
+  selectFighters(clickedFighter, game);
   return game;
 }
 
 
-function selectFighters(userFighter, game) {
-  game.gameBoard.userFighter = userFighter;
-  game.gameBoard.computerFighter = game.gameBoard.fighters[Math.floor(Math.random() * game.gameBoard.fighters.length)];
+function selectFighters(clickedFighter, game) {
+  console.log("selectFighters clickedFighter:", clickedFighter);
+  createUserFighter(clickedFighter, game);
+  generateComputerFighter(game);
+
 }
 
+function createUserFighter(clickedFighter, game) {
+  userFighter = clickedFighter.dataset.fighter;
+  console.log("userFighter:", userFighter);
+  game.gameBoard.userFighter = userFighter;
+}
+
+function generateComputerFighter(game) {
+  game.gameBoard.computerFighter = game.gameBoard.fighters[Math.floor(Math.random() * game.gameBoard.fighters.length)];
+}
 
 function checkWinConditions(game) {
   if (
@@ -169,20 +159,37 @@ function addWins(player) {
 function determineDraw() {
   winner = null;
 }
-  
+
+function displayFighters(game) {
+  var userFighterIcon = document.getElementById('userFighterIcon');
+  var computerFighterIcon = document.getElementById('computerFighterIcon');
+  var winnerContainer = document.getElementById('winnerContainer');
+
+ hide(fighterContainer);
+
+  show(winnerContainer);
+  show(userFighterIcon);
+  show(computerFighterIcon);
+
+  userFighterIcon.src = `assets/${game.gameBoard.userFighter}.png`;
+  computerFighterIcon.src = `assets/${game.gameBoard.computerFighter}.png`;
+  userFighterIcon.alt = `User's Fighter: ${game.gameBoard.userFighter}`;
+  computerFighterIcon.alt = `Computer's Fighter: ${game.gameBoard.computerFighter}`;
+}
+
 
 
 function displayWinTotal(user, computer) {
-  userWins.innerHTML = `Wins: ${user.wins}`;
-  computerWins.innerHTML = `Wins: ${computer.wins}`;
+  userWinsDisplayed.innerHTML = `Wins: ${user.wins}`;
+  computerWinsDisplayed.innerHTML = `Wins: ${computer.wins}`;
 }
 function displayWinnerMessage() {
   if (winner === user) {
-    messageContainer.innerHTML = `<h2>${user.token}${user.name} won this round!${user.token}</h2>`
+    messageContainer.innerHTML = `<p class="winner-message">${user.token}${user.name} won this round!${user.token}</p>`
   } else if (winner === computer) {
-    messageContainer.innerHTML = `<h2>${computer.token}${computer.name} won this round!${computer.token}</h2>`
+    messageContainer.innerHTML = `<p class="winner-message">${computer.token}${computer.name} won this round!${computer.token}</p>`
   } else if (winner === null) {
-    messageContainer.innerHTML = `<h2>🥹It's a draw!🥹<h2>`;
+    messageContainer.innerHTML = `<p class="winner-message">🥹It's a draw!🥹<p>`;
   }
 
 }
@@ -194,4 +201,11 @@ function resetGameBoard() {
 
 function toggle(element) {
   element.classList.toggle('hidden');
+}
+function show(element) {
+  element.classList.remove('hidden');
+}
+
+function hide(element) {
+  element.classList.add('hidden')
 }
