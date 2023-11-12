@@ -109,20 +109,23 @@ padding-top: 50px;
 .fighter-container {
   padding: 100px;
 }
-.winner-container {
+.chosen-fighters-container {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.winner-container .fighter-icon {
+.chosen-fighters-container .fighter-icon {
   width: 60%;
 }
 .choose-fighter-button {
   background-color: #8499C5;
-  border: none;
-  
+  padding: none;
+margin: none;
+border: none;
 }
+  
+
 .choose-fighter-button:hover {
   cursor: pointer;
   background-color: #FFFFFF;
@@ -131,10 +134,14 @@ padding-top: 50px;
   
 }
 .fighter-icon {
-width: 60%;
+width: 20vh;
+height: 20vh;
+padding: none;
+margin: none;
+border: none;
 }
 #userFighterIcon, #computerFighterIcon {
-  width: 60%;
+  width: 20vh;
 }
 
 .fighter-icon-container {

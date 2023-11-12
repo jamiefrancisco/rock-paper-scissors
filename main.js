@@ -1,4 +1,5 @@
 // Query Selectors
+
 var gameModeContainer = document.querySelector('.game-mode-container');
 var fighterContainer = document.querySelector('.fighter-container');
 var messageContainer = document.querySelector('.message-container');
@@ -8,10 +9,12 @@ var winnerMessage = document.querySelector('.winner-message');
 var changeGameButton = document.querySelector('.change-game-button');
 var userWinsDisplayed = document.querySelector('.user-wins');
 var computerWinsDisplayed = document.querySelector('.computer-wins');
+var chosenFightersContainer = document.querySelector('.chosen-fighters-container');
 // var rockIcon = document.getElementById("rockIcon");
 // var paperIcon = document.getElementById("paperIcon");
 // var scissorsIcon = document.getElementById("scissorsIcon");
 
+// Global Variables
 
 var winner = "";
 var user = {};
@@ -29,48 +32,29 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 gameModeContainer.addEventListener('click', function (event) {
-  if (event.target.closest('#classicGameButton')) {
-    gameType = 'Classic'
-    toggle(gameModeContainer);
-    toggle(fighterContainer);
-    toggle(chooseFighterMessage);
-    toggle(chooseModeMessage);
-  } else if (event.target.closest('#variantGameButton')) {
-    gameType = 'Variant'
-    toggle(gameModeContainer);
-    toggle(fighterContainer);
-    toggle(chooseFighterMessage);
-    toggle(chooseModeMessage);
+  var clickedGameMode = event.target.closest('.game-mode-button');
+  if(clickedGameMode) {
+  gameType = assignGameType(event.target);
+  displayChooseFighterView(gameType)
   }
 });
 
 fighterContainer.addEventListener('click', function (event) {
   var clickedFighter = event.target.closest('.choose-fighter-button');
   if (clickedFighter) {
-    console.log("clickedFighter:", clickedFighter);
-    console.log("clickedFighter dataset:", clickedFighter.dataset);
     createGame(user, computer, gameBoard, gameType, clickedFighter);
-    console.log("game: ", game);
-    displayFighters(game);
-    console.log(user.wins)
-    console.log(computer.wins)
     checkWinConditions(game);
-    console.log(user.wins);
-    console.log(computer.wins);
+    updateDisplay();
+    displayChosenFighters(game);
     resetGameBoard();
-    console.log(game);
-    show(changeGameButton);
-  } 
+  }
 });
 
 changeGameButton.addEventListener('click', function () {
-  messageContainer.innerHTML = chooseModeMessage.innerHTML;
-  hide(winnerContainer);
-  show(gameModeContainer);
-  show(chooseFighterMessage);
-  toggle(changeGameButton);
-
+  displayHomeView();
 });
+
+// Data Model / Gameplay Functions
 
 function createPlayer(name, token, wins = 0) {
   var player = {
@@ -79,6 +63,14 @@ function createPlayer(name, token, wins = 0) {
     wins: wins,
   }
   return player;
+}
+
+function assignGameType(target) {
+  if (target.closest('#classicGameButton')) {
+    return 'Classic';
+  } else if (target.closest('#variantGameButton')) {
+    return 'Variant';
+  }
 }
 
 function createGameBoard(gameType) {
@@ -107,14 +99,11 @@ function createGame(user, computer, gameBoard, gameType, clickedFighter) {
     gameBoard: gameBoard,
     gameType: gameType
   }
-  console.log("createGame clickedFighter:", clickedFighter);
   selectFighters(clickedFighter, game);
   return game;
 }
 
-
 function selectFighters(clickedFighter, game) {
-  console.log("selectFighters clickedFighter:", clickedFighter);
   createUserFighter(clickedFighter, game);
   generateComputerFighter(game);
 
@@ -122,7 +111,6 @@ function selectFighters(clickedFighter, game) {
 
 function createUserFighter(clickedFighter, game) {
   userFighter = clickedFighter.dataset.fighter;
-  console.log("userFighter:", userFighter);
   game.gameBoard.userFighter = userFighter;
 }
 
@@ -149,49 +137,14 @@ function checkWinConditions(game) {
   if (winner) {
     addWins(winner);
   }
-  displayWinTotal(user, computer);
-  displayWinnerMessage();
 }
+
 function addWins(player) {
   player.wins++
 }
 
 function determineDraw() {
   winner = null;
-}
-
-function displayFighters(game) {
-  var userFighterIcon = document.getElementById('userFighterIcon');
-  var computerFighterIcon = document.getElementById('computerFighterIcon');
-  var winnerContainer = document.getElementById('winnerContainer');
-
- hide(fighterContainer);
-
-  show(winnerContainer);
-  show(userFighterIcon);
-  show(computerFighterIcon);
-
-  userFighterIcon.src = `assets/${game.gameBoard.userFighter}.png`;
-  computerFighterIcon.src = `assets/${game.gameBoard.computerFighter}.png`;
-  userFighterIcon.alt = `User's Fighter: ${game.gameBoard.userFighter}`;
-  computerFighterIcon.alt = `Computer's Fighter: ${game.gameBoard.computerFighter}`;
-}
-
-
-
-function displayWinTotal(user, computer) {
-  userWinsDisplayed.innerHTML = `Wins: ${user.wins}`;
-  computerWinsDisplayed.innerHTML = `Wins: ${computer.wins}`;
-}
-function displayWinnerMessage() {
-  if (winner === user) {
-    messageContainer.innerHTML = `<p class="winner-message">${user.token}${user.name} won this round!${user.token}</p>`
-  } else if (winner === computer) {
-    messageContainer.innerHTML = `<p class="winner-message">${computer.token}${computer.name} won this round!${computer.token}</p>`
-  } else if (winner === null) {
-    messageContainer.innerHTML = `<p class="winner-message">🥹It's a draw!🥹<p>`;
-  }
-
 }
 
 function resetGameBoard() {
@@ -208,4 +161,68 @@ function show(element) {
 
 function hide(element) {
   element.classList.add('hidden')
+}
+
+function displayChosenFighters(game) {
+  var userFighterIcon = document.getElementById('userFighterIcon');
+  var computerFighterIcon = document.getElementById('computerFighterIcon');
+  var chosenFightersContainer = document.getElementById('chosenFightersContainer');
+
+  userFighterIcon.src = `assets/${game.gameBoard.userFighter}.png`;
+  computerFighterIcon.src = `assets/${game.gameBoard.computerFighter}.png`;
+  userFighterIcon.alt = `User's Fighter: ${game.gameBoard.userFighter}`;
+  computerFighterIcon.alt = `Computer's Fighter: ${game.gameBoard.computerFighter}`;
+  
+  hide(fighterContainer);
+  show(chosenFightersContainer);
+  setTimeout(function () {
+    hide(winnerMessage);
+    displayChooseFighterView(game.gameType);
+    show(changeGameButton);
+  }, 2000);
+}
+
+
+function updateDisplay() {
+  displayWinTotal(user, computer);
+  displayWinnerMessage();
+}
+
+function displayWinTotal(user, computer) {
+  userWinsDisplayed.innerHTML = `Wins: ${user.wins}`;
+  computerWinsDisplayed.innerHTML = `Wins: ${computer.wins}`;
+}
+
+function displayWinnerMessage() {
+  if (winner === user) {
+    winnerMessage.innerHTML = `<p class="winner-message">${user.token}${user.name} won this round!${user.token}</p>`
+  } else if (winner === computer) {
+    winnerMessage.innerHTML = `<p class="winner-message">${computer.token}${computer.name} won this round!${computer.token}</p>`
+  } else if (winner === null) {
+    winnerMessage.innerHTML = `<p class="winner-message">🥹It's a draw!🥹<p>`;
+  }
+  hide(chooseFighterMessage);
+  show(winnerMessage);
+}
+
+function displayHomeView() {
+  hide(changeGameButton);
+  hide(fighterContainer);
+  hide(chosenFightersContainer);
+  hide(chooseFighterMessage);
+  hide(winnerMessage);
+  show(chooseModeMessage);
+  show(gameModeContainer);
+}
+
+function displayChooseFighterView(gameType) {
+  if (gameType === 'Classic') {
+    hide(changeGameButton);
+    hide(chooseModeMessage);
+    hide(gameModeContainer);
+    hide(chosenFightersContainer);
+    hide(winnerMessage);
+    show(fighterContainer);
+    show(chooseFighterMessage);
+  }
 }
