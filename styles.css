@@ -1,10 +1,5 @@
-/*
-Rock (Granite Gray): #505050
-Paper (Crisp White): #FFFFFF
-Scissors (Earthy Green): #4CAF50
-Background (Slate Blue): #6A7EAD
-Accent (Rust Red): #D94E4E
-*/
+/* Elements */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -14,7 +9,6 @@ Accent (Rust Red): #D94E4E
 body {
   display: flex;
   justify-content: center;
-  /* font-family: 'New Rocker', sans-serif; */
   background-color: #6A7EAD;
   margin: 0;
   height: 100vh;
@@ -28,36 +22,48 @@ main {
   flex: 1;
 }
 
-h1 {
-  font-family: 'New Rocker', sans-serif;
-  font-size: 70px;
+/* Classes */
+
+.fighter-label {
+  font-family: 'Luckiest Guy';
+  font-size: 2vh;
+  color: #FFFFFF;
+}
+
+.choose-fighter-button:hover .fighter-label {
+  color: #505050;
+}
+
+.main-title {
+  font-family: 'Luckiest Guy';
+  font-size: 5.5vw;
   color: #FFFFFF;
   padding-top: 40px;
 }
 
-h2 {
-  font-size: 25px;
-  color: #FFFFFF;
-  padding-top: 10px;
-}
-
 .button-header {
   display: inline-block;
-  font-family: 'New Rocker';
-  font-size: 1.5rem;
+  font-family: 'Press Start 2P';
+  font-size: 3vh;
   margin-bottom: 10px;
+}
 
+.rules {
+  display: inline-block;
+  font-family: 'Luckiest Guy';
+  font-size: 2vh;
+  margin-bottom: 10px;
 }
 
 .game-mode-container {
-display: flex;
-flex-direction: column;
-padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  padding-top: 30px;
 
 }
 
 .game-mode-button {
-  background-color:#505050;
+  background-color: #505050;
   font-size: 1rem;
   color: #FFFFFF;
   margin: 15px;
@@ -68,6 +74,7 @@ padding-top: 50px;
 .game-mode-button:hover {
   background-color: #FFFFFF;
   color: #505050;
+  transform: scale(1.2);
 
 }
 
@@ -82,33 +89,48 @@ padding-top: 50px;
   padding: 10px;
   color: #475376;
   background-color: #FFFFFF;
+  transform: scale(1.2);
 }
 
-.computer-player-container, .user-player-container {
+.computer-player-container,
+.user-player-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 15%;
-  box-sizing: border-box;
-  flex: 0 0 auto; 
   background-color: #8499C5;
-  padding-top: 40px;
-  font-size: large;
+  padding-top: 5vh;
+  font-family: 'Gochi Hand';
+  font-size: 3vh;
   color: #FFFFFF;
+  overflow: hidden;
+}
+
+.message-container p {
+  font-family: 'Gochi Hand';
+  font-size: 3vw;
+  color: #FFFFFF;
+}
+
+.message-container {
+  padding-top: 6rem;
 }
 
 .player-emoji {
   text-align: center;
-  font-size: xx-large;
+  font-size: 5vh;
 }
 
-.user-wins, .computer-wins {
+.user-wins,
+.computer-wins {
   padding: 20px;
-  font-size: larger;
+  font-size: 3vh;
 }
+
 .fighter-container {
-  padding: 100px;
+  padding-top: 100px;
 }
+
 .chosen-fighters-container {
   display: flex;
   justify-content: center;
@@ -118,44 +140,41 @@ padding-top: 50px;
 .chosen-fighters-container .fighter-icon {
   width: 60%;
 }
+
 .choose-fighter-button {
   background-color: #8499C5;
-  padding: none;
-margin: none;
-border: none;
+  background: transparent;
+  border: none;
+  width: 10vw;
 }
-  
 
 .choose-fighter-button:hover {
   cursor: pointer;
   background-color: #FFFFFF;
   border: none;
-
-  
+  transform: scale(1.1);
 }
+
 .fighter-icon {
-width: 20vh;
-height: 20vh;
-padding: none;
-margin: none;
-border: none;
-}
-#userFighterIcon, #computerFighterIcon {
-  width: 20vh;
+  width: 90%;
+  height: 80%;
+  padding: none;
+  margin: none;
+  border: none;
 }
 
-.fighter-icon-container {
+.fighter-container {
   display: flex;
-  flex-direction: row;
   justify-content: center;
-  padding-top: 100px;
 }
 
-.message-container {
-  font-size: 25px;
-  color: #FFFFFF;
-  padding-top: 10px;
-}
 .hidden {
-  display:none;
+  display: none;
+}
+
+/* IDs */
+
+#userFighterIcon,
+#computerFighterIcon {
+  width: 20vh;
 }

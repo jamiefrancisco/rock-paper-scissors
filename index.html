@@ -1,19 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="./styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=New+Rocker&display=swap" rel="stylesheet">
-  <a href="https://www.flaticon.com/free-icons/rock-paper-scissors" class="hidden"
-    title="rock paper scissors icons">Rock paper scissors icons created by iconading - Flaticon</a>
-  <a href="https://www.flaticon.com/free-icons/fist" class="hidden" title="fist icons">Fist icons created by Voysla -
-    Flaticon</a>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Luckiest+Guy&family=New+Rocker&family=Press+Start+2P&family=Wallpoet&display=swap"
+    rel="stylesheet">
   <title>Rock Paper Scissors</title>
 </head>
-
 <body>
   <aside class="user-player-container">
     <div class="player-emoji">
@@ -24,40 +20,56 @@
     </button>
   </aside>
   <main>
-    <h1 class="main-title">Rock, Paper, Scissors</h1>
-    <header class="message-container">
-      <p class="choose-mode-message">Choose your game mode!</p>
-      <p class="choose-fighter-message hidden">Choose your fighter!</p>
-      <p class="winner-message hidden"></p>
+    <header class="main-title">
+      <h1 class="main-title">ROCK, PAPER, SCISSORS</h1>
     </header>
+    <section class="message-container">
+      <p class="choose-mode-message">CHOOSE YOUR GAME MODE!</p>
+      <p class="choose-fighter-message hidden">CHOOSE YOUR FIGHTER!</p>
+      <p class="winner-message hidden"></p>
+    </section>
     <section class="game-mode-container">
       <button type="button" class="game-mode-button" id="classicGameButton">
         <span class="button-header">
           <p>🪨 CLASSIC 📃</p>
         </span><br>
-        <p>rock > scissors<br>
+        <p class="rules">rock > scissors<br>
           paper > rock<br>
-          scissors > paper</p>
+          scissors > paper
+        </p>
       </button>
       <button type="button" class="game-mode-button" id="variantGameButton">
         <span class="button-header">
-          <p>🪨 HARD MODE 📃</p>
+          <p>🪨 CRAZY 📃</p>
         </span><br>
-        <p>rock > scissors<br>
-          paper > rock<br>
-          scissors > paper</p>
+        <p class="rules">rock > scissors & lizard<br>
+          paper > rock & spock<br>
+          scissors > paper & lizard <br>
+          lizard > paper & spock <br>
+          spock > rock & scissors
+        </p>
       </button>
     </section>
     <section class="fighter-container hidden">
-      <button type="button" class="choose-fighter-button" data-fighter="rock">
-        <img class="fighter-icon" id="rockIcon" src="assets/rock.png" alt="rock-image">
+      <button type="button" class="choose-fighter-button" id="rockButton" data-fighter="rock">
+        <img class="fighter-icon" src="assets/rock.png" alt="rock-image">
+        <p class="fighter-label">ROCK</p>
       </button>
-      <button type="button" class="choose-fighter-button" data-fighter="paper">
-        <img class="fighter-icon" id="paperIcon" src="assets/paper.png" alt="paper-image">
+      <button type="button" class="choose-fighter-button" id="paperButton" data-fighter="paper">
+        <img class="fighter-icon" src="assets/paper.png" alt="paper-image">
+        <p class="fighter-label">PAPER</p>
       </button>
-      <button type="button" class="choose-fighter-button" data-fighter="scissors">
-        <img class="fighter-icon" id="scissorsIcon" src="assets/scissors.png" alt="scissors-image">
-      </button>
+      <button type="button" class="choose-fighter-button" id="scissorsButton" data-fighter="scissors">
+        <img class="fighter-icon" src="assets/scissors.png" alt="scissors-image">
+        <p class="fighter-label">SCISSORS</p>
+        <button type="button" class="choose-fighter-button hidden" id="lizardButton" data-fighter="lizard">
+          <img class="fighter-icon" src="assets/lizard.png" alt="lizard-image">
+          <p class="fighter-label">LIZARD</p>
+        </button>
+        <button type="button" class="choose-fighter-button hidden" id="spockButton" data-fighter="spock">
+          <img class="fighter-icon" src="assets/spock.png" alt="spock-image">
+          <p class="fighter-label">SPOCK</p>
+        </button>
     </section>
     <section class="chosen-fighters-container hidden" id="chosenFightersContainer">
       <div class="fighter-icon-container">
@@ -68,7 +80,6 @@
       </div>
     </section>
   </main>
-
   <aside class="computer-player-container">
     <div class="player-emoji">
       💻<br>
@@ -77,10 +88,4 @@
   </aside>
   <script src="./main.js"></script>
 </body>
-
-
-
-
-
-
 </html>
