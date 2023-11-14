@@ -2,6 +2,8 @@
 
 var gameModeContainer = document.querySelector('.game-mode-container');
 var fighterContainer = document.querySelector('.fighter-container');
+var lizardButton = document.getElementById('lizardButton');
+var spockButton = document.getElementById('spockButton');
 var messageContainer = document.querySelector('.message-container');
 var chooseModeMessage = document.querySelector('.choose-mode-message');
 var chooseFighterMessage = document.querySelector('.choose-fighter-message');
@@ -10,6 +12,10 @@ var changeGameButton = document.querySelector('.change-game-button');
 var userWinsDisplayed = document.querySelector('.user-wins');
 var computerWinsDisplayed = document.querySelector('.computer-wins');
 var chosenFightersContainer = document.querySelector('.chosen-fighters-container');
+var userFighterIcon = document.getElementById('userFighterIcon');
+var userFighterLabel = document.getElementById('userFighterLabel');
+var computerFighterIcon = document.getElementById('computerFighterIcon');
+var computerFighterLabel = document.getElementById('computerFighterLabel');
 
 // Global Variables
 
@@ -20,6 +26,7 @@ var gameType;
 var gameBoard = {};
 var game = {};
 var userFighter;
+var computerFighter;
 
 // Event Listeners
 
@@ -32,7 +39,6 @@ gameModeContainer.addEventListener('click', function (event) {
   var clickedGameMode = event.target.closest('.game-mode-button');
   if (clickedGameMode) {
     gameType = assignGameType(event.target);
-    console.log(gameType)
     displayChooseFighterView(gameType)
   }
 });
@@ -41,7 +47,7 @@ fighterContainer.addEventListener('click', function (event) {
   var clickedFighter = event.target.closest('.choose-fighter-button');
   if (clickedFighter) {
     createGame(user, computer, gameBoard, gameType, clickedFighter);
-    determineWinner(game);
+    determineOutcome(game);
     addWins(winner);
     displayChosenFighters(game);
     updateDisplay();
@@ -113,38 +119,35 @@ function createUserFighter(clickedFighter, game) {
 }
 
 function generateComputerFighter(game) {
-  game.gameBoard.computerFighter = game.gameBoard.fighters[Math.floor(Math.random() * game.gameBoard.fighters.length)];
+  computerFighter = game.gameBoard.fighters[Math.floor(Math.random() * game.gameBoard.fighters.length)];
+  game.gameBoard.computerFighter = computerFighter;
 }
 
-function determineWinner(game) {
-  if (
-    (game.gameBoard.userFighter === 'rock' && game.gameBoard.computerFighter === 'scissors') ||
-    (game.gameBoard.userFighter === 'rock' && game.gameBoard.computerFighter === 'lizard') ||
-    (game.gameBoard.userFighter === 'paper' && game.gameBoard.computerFighter === 'rock') ||
-    (game.gameBoard.userFighter === 'paper' && game.gameBoard.computerFighter === 'spock') ||
-    (game.gameBoard.userFighter === 'scissors' && game.gameBoard.computerFighter === 'paper') ||
-    (game.gameBoard.userFighter === 'scissors' && game.gameBoard.computerFighter === 'lizard') ||
-    (game.gameBoard.userFighter === 'lizard' && game.gameBoard.computerFighter === 'paper') ||
-    (game.gameBoard.userFighter === 'lizard' && game.gameBoard.computerFighter === 'spock') ||
-    (game.gameBoard.userFighter === 'spock' && game.gameBoard.computerFighter === 'rock') ||
-    (game.gameBoard.userFighter === 'spock' && game.gameBoard.computerFighter === 'scissors')
-  ) {
-    winner = user;
-  } else if (
-    (game.gameBoard.computerFighter === 'rock' && game.gameBoard.userFighter === 'scissors') ||
-    (game.gameBoard.computerFighter === 'rock' && game.gameBoard.userFighter === 'lizard') ||
-    (game.gameBoard.computerFighter === 'paper' && game.gameBoard.userFighter === 'rock') ||
-    (game.gameBoard.computerFighter === 'paper' && game.gameBoard.userFighter === 'spock') ||
-    (game.gameBoard.computerFighter === 'scissors' && game.gameBoard.userFighter === 'paper') ||
-    (game.gameBoard.computerFighter === 'scissors' && game.gameBoard.userFighter === 'lizard') ||
-    (game.gameBoard.computerFighter === 'lizard' && game.gameBoard.userFighter === 'paper') ||
-    (game.gameBoard.computerFighter === 'lizard' && game.gameBoard.userFighter === 'spock') ||
-    (game.gameBoard.computerFighter === 'spock' && game.gameBoard.userFighter === 'rock') ||
-    (game.gameBoard.computerFighter === 'spock' && game.gameBoard.userFighter === 'scissors')
-  ) {
-    winner = computer;
+function determineOutcome(game) {
+  if (game.gameBoard.userFighter === game.gameBoard.computerFighter) {
+    determineTie();
   } else {
-    winner = determineDraw();
+    determineWinner();
+  }
+}
+
+function determineTie() {
+  return winner = null;
+}
+
+function determineWinner() {
+  var winningCombos = {
+    rock: ['scissors', 'lizard'],
+    paper: ['rock', 'spock'],
+    scissors: ['paper', 'lizard'],
+    lizard: ['paper', 'spock'],
+    spock: ['rock', 'scissors']
+  }
+
+  if (winningCombos[userFighter].includes(computerFighter)) {
+    winner = user;
+  } else {
+    winner = computer;
   }
   return winner;
 }
@@ -155,22 +158,14 @@ function addWins(winner) {
   }
 }
 
-function determineDraw() {
-  return null;
-}
-
 function resetGameBoard() {
   gameBoard = {};
   game = {};
 }
+
 // Display & Update DOM functions 
 
 function displayChosenFighters(game) {
-  var userFighterIcon = document.getElementById('userFighterIcon');
-  var computerFighterIcon = document.getElementById('computerFighterIcon');
-  var chosenFightersContainer = document.getElementById('chosenFightersContainer');
-  var userFighterLabel = document.getElementById('user-fighter-label');
-  var computerFighterLabel = document.getElementById('computer-fighter-label')
 
   userFighterIcon.src = `assets/${game.gameBoard.userFighter}1.png`;
   userFighterIcon.alt = `User's Fighter: ${game.gameBoard.userFighter}`;
@@ -191,28 +186,10 @@ function displayChosenFighters(game) {
 }
 
 function displayChooseFighterView(gameType) {
-  var lizardButton = document.getElementById('lizardButton');
-  var spockButton = document.getElementById('spockButton');
   if (gameType === 'Classic') {
-    hide(lizardButton);
-    hide(spockButton);
-    hide(changeGameButton);
-    hide(chooseModeMessage);
-    hide(gameModeContainer);
-    hide(chosenFightersContainer);
-    hide(winnerMessage);
-    show(fighterContainer);
-    show(chooseFighterMessage);
+    displayClassicView();
   } else if (gameType === 'Crazy') {
-    show(lizardButton);
-    show(spockButton);
-    hide(changeGameButton);
-    hide(chooseModeMessage);
-    hide(gameModeContainer);
-    hide(chosenFightersContainer);
-    hide(winnerMessage);
-    show(fighterContainer);
-    show(chooseFighterMessage);
+    displayCrazyView();
   }
 }
 
@@ -238,6 +215,40 @@ function displayWinnerMessage() {
   show(winnerMessage);
 }
 
+// Page Views & Helper Functions
+
+function show(element) {
+  element.classList.remove('hidden');
+}
+
+function hide(element) {
+  element.classList.add('hidden')
+}
+
+function displayClassicView() {
+  hide(lizardButton);
+  hide(spockButton);
+  hide(changeGameButton);
+  hide(chooseModeMessage);
+  hide(gameModeContainer);
+  hide(chosenFightersContainer);
+  hide(winnerMessage);
+  show(fighterContainer);
+  show(chooseFighterMessage);
+}
+
+function displayCrazyView() {
+  show(lizardButton);
+  show(spockButton);
+  hide(changeGameButton);
+  hide(chooseModeMessage);
+  hide(gameModeContainer);
+  hide(chosenFightersContainer);
+  hide(winnerMessage);
+  show(fighterContainer);
+  show(chooseFighterMessage);
+}
+
 function displayHomeView() {
   hide(changeGameButton);
   hide(fighterContainer);
@@ -246,13 +257,4 @@ function displayHomeView() {
   hide(winnerMessage);
   show(chooseModeMessage);
   show(gameModeContainer);
-}
-// View Helper Functions
-
-function show(element) {
-  element.classList.remove('hidden');
-}
-
-function hide(element) {
-  element.classList.add('hidden')
 }

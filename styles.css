@@ -47,17 +47,17 @@ main {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  /* padding-top: 7%; */
-  border: solid 3px #8499C5;
   margin: 10px 0px;
+  font-family: 'Luckiest Guy';
 }
 
 .game-mode-section:nth-child(2) .rules-container p {
   display: flex;
   flex-direction: row;
-  border: solid 3px #8499C5;
   margin: 10px 0px;
   justify-content: center;
+  font-family: 'Luckiest Guy';
+  font-size: 1.3vw;
 }
 
 .rules-container {
@@ -94,6 +94,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 25px;
 }
 
 .fighter-container-top-row {
@@ -117,7 +118,7 @@ main {
   height: 100vh;
   background-color: #8499C5;
   padding-top: 5vh;
-  font-family: 'Gochi Hand';
+  font-family: 'Luckiest Guy';
   color: #FFFFFF;
   overflow: hidden;
 }
@@ -126,7 +127,7 @@ main {
 
 .main-title {
   font-family: 'Luckiest Guy';
-  font-size: 9vmin;
+  font-size: 8vmin;
   color: #FFFFFF;
   padding-top: 15px;
 }
@@ -141,18 +142,26 @@ main {
   font-family: 'Luckiest Guy';
   font-size: 2vmin;
   color: #FFFFFF;
+  padding-top: 10px;
 }
 
-#user-fighter-label,
-#computer-fighter-label {
+#userFighterLabel,
+#computerFighterLabel {
   font-family: 'Luckiest Guy';
   font-size: 3vh;
   color: #FFFFFF;
+  padding-top: 20px;
+}
+
+.or-text {
+  margin: 15px;
+  padding-top: 8px;
 }
 
 .player-emoji {
   text-align: center;
   font-size: 5vmin;
+  padding-top: 8vh;
 }
 
 .user-wins,
@@ -166,21 +175,24 @@ main {
 .game-mode-button {
   display: flex;
   justify-content: center;
-  background-color: #505050;
-  font-family: 'Press Start 2P';
-  font-size: 2vh;
+  background-color: #475376;
+  font-family: 'Luckiest Guy';
+  font-size: 4vh;
   color: #FFFFFF;
   margin: 15px;
   cursor: pointer;
-  padding: 20px;
+  padding: 12px 0px 2px 0px;
   width: 20vmin;
-
+  border: 5px solid #FFFFFF;
+  border-radius: 10px;
 }
 
 .game-mode-button:hover {
   background-color: #FFFFFF;
-  color: #505050;
+  color: #475376;
   transform: scale(1.2);
+  border: 5px solid #475376;
+  border-radius: 4px;
 }
 
 .choose-fighter-button {
@@ -202,20 +214,19 @@ main {
 }
 
 .change-game-button {
-  padding: 20px;
+  padding: 20px 10px 20px 10px;
   color: #FFFFFF;
   background-color: #475376;
   font-family: 'Luckiest Guy';
-  font-size: 3vmin;
+  font-size: 2.5vmin;
 }
 
 .change-game-button:hover {
-  padding: 20px;
+  padding: 15px;
   cursor: pointer;
-  padding: 10px;
   color: #475376;
   background-color: #FFFFFF;
-  transform: scale(1.3);
+  transform: scale(1.1);
 }
 
 .chosen-fighters-container .fighter-icon {
@@ -233,13 +244,13 @@ main {
 .mini-icon {
   width: 18%;
   background-color: none;
-  margin: 5px 0px
+  margin: 5px 0px;
 }
 
 .mini-operator-icon {
-  width: 9%;
+  width: 8%;
   background-color: none;
-  margin: 10px;
+  margin: 15px;
 }
 
 #userFighterIcon,
