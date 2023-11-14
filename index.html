@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="./styles.css">
@@ -10,14 +11,15 @@
     rel="stylesheet">
   <title>Rock Paper Scissors</title>
 </head>
+
 <body>
   <aside class="user-player-container">
     <div class="player-emoji">
       🙋‍♀️<br>
-      User</div>
+      User
+    </div>
     <p class="user-wins">Wins: 0</p>
-    <button type="button" class="change-game-button hidden">CHANGE GAME?
-    </button>
+    <button type="button" class="change-game-button hidden">CHANGE GAME?</button>
   </aside>
   <main>
     <header class="main-title">
@@ -26,66 +28,110 @@
     <section class="message-container">
       <p class="choose-mode-message">CHOOSE YOUR GAME MODE!</p>
       <p class="choose-fighter-message hidden">CHOOSE YOUR FIGHTER!</p>
-      <p class="winner-message hidden"></p>
+      <p class="winner-message hidden"><!-- Winner message will appear here! --></p>
     </section>
     <section class="game-mode-container">
-      <button type="button" class="game-mode-button" id="classicGameButton">
-        <span class="button-header">
-          <p>🪨 CLASSIC 📃</p>
-        </span><br>
-        <p class="rules">rock > scissors<br>
-          paper > rock<br>
-          scissors > paper
-        </p>
-      </button>
-      <button type="button" class="game-mode-button" id="variantGameButton">
-        <span class="button-header">
-          <p>🪨 CRAZY 📃</p>
-        </span><br>
-        <p class="rules">rock > scissors & lizard<br>
-          paper > rock & spock<br>
-          scissors > paper & lizard <br>
-          lizard > paper & spock <br>
-          spock > rock & scissors
-        </p>
-      </button>
+      <div class="game-mode-section">
+        <button type="button" class="game-mode-button" id="classicGameButton">CLASSIC</button>
+        <section class="rules-container">
+          <p>
+            <img class="mini-icon" src="assets/rock2.png" alt="rock-image"> <img class="mini-operator-icon"
+              src="assets/greater-than.png" alt="greater-than-image"><img class="mini-icon" src="assets/scissors2.png"
+              alt="scissors-image">
+          </p>
+          <p>
+            <img class="mini-icon" src="assets/paper2.png" alt="paper-image"> <img class="mini-operator-icon"
+              src="assets/greater-than.png" alt="greater-than-image"><img class="mini-icon" src="assets/rock2.png"
+              alt="rock-image">
+          </p>
+          <p>
+            <img class="mini-icon" src="assets/scissors2.png" alt="scissors-image"> <img class="mini-operator-icon"
+              src="assets/greater-than.png" alt="greater-than-image"> <img class="mini-icon" src="assets/paper2.png"
+              alt="paper-image">
+          </p>
+        </section>
+      </div>
+      <div class="game-mode-section">
+        <button type="button" class="game-mode-button" id="crazyGameButton">CRAZY</button>
+        <section class="rules-container">
+          <p>
+            <img class="mini-icon" src="assets/rock2.png" alt="rock-image"> <img class="mini-operator-icon"
+              src="assets/greater-than.png" alt="greater-than-image"> <img class="mini-icon" src="assets/scissors2.png"
+              alt="scissors-image"><img class="mini-operator-icon" src="assets/and.png" alt="and-image"><img
+              class="mini-icon" src="assets/lizard2.png" alt="lizard-image">
+          </p>
+          <p><
+            img class="mini-icon" src="assets/paper2.png" alt="paper-image"> <img class="mini-operator-icon"
+              src="assets/greater-than.png" alt="greater-than-image"> <img class="mini-icon" src="assets/rock2.png"
+              alt="rock-image"><img class="mini-operator-icon" src="assets/and.png" alt="and-image"><img
+              class="mini-icon" src="assets/spock2.png" alt="spock-image">
+          </p>
+          <p>
+            <img class="mini-icon" src="assets/scissors2.png" alt="scissors-image"> <img class="mini-operator-icon"
+              src="assets/greater-than.png" alt="greater-than-image"> <img class="mini-icon" src="assets/paper2.png"
+              alt="paper-image"><img class="mini-operator-icon" src="assets/and.png" alt="and-image"><img
+              class="mini-icon" src="assets/lizard2.png" alt="lizard-image">
+          </p>
+          <p>
+            <img class="mini-icon" src="assets/lizard2.png" alt="lizard-image"> <img class="mini-operator-icon"
+              src="assets/greater-than.png" alt="greater-than-image"> <img class="mini-icon" src="assets/paper2.png"
+              alt="paper-image"><img class="mini-operator-icon" src="assets/and.png" alt="and-image"><img
+              class="mini-icon" src="assets/spock2.png" alt="spock-image">
+          </p>
+          <p>
+            <img class="mini-icon" src="assets/spock2.png" alt="spock-image"> <img class="mini-operator-icon"
+              src="assets/greater-than.png" alt="greater-than-image"> <img class="mini-icon" src="assets/rock2.png"
+              alt="rock-image"><img class="mini-operator-icon" src="assets/and.png" alt="and-image"><img
+              class="mini-icon" src="assets/scissors2.png" alt="scissors-image">
+          </p>
+        </section>
+      </div>
     </section>
     <section class="fighter-container hidden">
-      <button type="button" class="choose-fighter-button" id="rockButton" data-fighter="rock">
-        <img class="fighter-icon" src="assets/rock.png" alt="rock-image">
-        <p class="fighter-label">ROCK</p>
-      </button>
-      <button type="button" class="choose-fighter-button" id="paperButton" data-fighter="paper">
-        <img class="fighter-icon" src="assets/paper.png" alt="paper-image">
-        <p class="fighter-label">PAPER</p>
-      </button>
-      <button type="button" class="choose-fighter-button" id="scissorsButton" data-fighter="scissors">
-        <img class="fighter-icon" src="assets/scissors.png" alt="scissors-image">
-        <p class="fighter-label">SCISSORS</p>
+      <div class="fighter-container-top-row">
+        <button type="button" class="choose-fighter-button" id="rockButton" data-fighter="rock">
+          <img class="fighter-icon" src="assets/rock1.png" alt="rock-image">
+          <p class="fighter-label">ROCK</p>
+        </button>
+        <button type="button" class="choose-fighter-button" id="paperButton" data-fighter="paper">
+          <img class="fighter-icon" src="assets/paper1.png" alt="paper-image">
+          <p class="fighter-label">PAPER</p>
+        </button>
+        <button type="button" class="choose-fighter-button" id="scissorsButton" data-fighter="scissors">
+          <img class="fighter-icon" src="assets/scissors1.png" alt="scissors-image">
+          <p class="fighter-label">SCISSORS</p>
+      </div>
+      <div class="fighter-container-bottom-row">
         <button type="button" class="choose-fighter-button hidden" id="lizardButton" data-fighter="lizard">
-          <img class="fighter-icon" src="assets/lizard.png" alt="lizard-image">
+          <img class="fighter-icon" src="assets/lizard1.png" alt="lizard-image">
           <p class="fighter-label">LIZARD</p>
         </button>
         <button type="button" class="choose-fighter-button hidden" id="spockButton" data-fighter="spock">
-          <img class="fighter-icon" src="assets/spock.png" alt="spock-image">
+          <img class="fighter-icon" src="assets/spock1.png" alt="spock-image">
           <p class="fighter-label">SPOCK</p>
         </button>
+      </div>
     </section>
     <section class="chosen-fighters-container hidden" id="chosenFightersContainer">
+      <!-- Chosen fighter icons will appear here! -->
       <div class="fighter-icon-container">
         <img id="userFighterIcon" src="" alt="">
+        <p id="user-fighter-label"></p>
       </div>
       <div class="fighter-icon-container">
         <img id="computerFighterIcon" src="" alt="">
+        <p id="computer-fighter-label"></p>
       </div>
     </section>
   </main>
   <aside class="computer-player-container">
     <div class="player-emoji">
       💻<br>
-      Computer</div>
+      Computer
+    </div>
     <p class="computer-wins">Wins: 0</p>
   </aside>
   <script src="./main.js"></script>
 </body>
+
 </html>

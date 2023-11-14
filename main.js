@@ -67,7 +67,7 @@ function createPlayer(name, token, wins = 0) {
 function assignGameType(target) {
   if (target.closest('#classicGameButton')) {
     return 'Classic';
-  } else if (target.closest('#variantGameButton')) {
+  } else if (target.closest('#crazyGameButton')) {
     return 'Crazy';
   }
 }
@@ -169,19 +169,25 @@ function displayChosenFighters(game) {
   var userFighterIcon = document.getElementById('userFighterIcon');
   var computerFighterIcon = document.getElementById('computerFighterIcon');
   var chosenFightersContainer = document.getElementById('chosenFightersContainer');
+  var userFighterLabel = document.getElementById('user-fighter-label');
+  var computerFighterLabel = document.getElementById('computer-fighter-label')
 
-  userFighterIcon.src = `assets/${game.gameBoard.userFighter}.png`;
-  computerFighterIcon.src = `assets/${game.gameBoard.computerFighter}.png`;
+  userFighterIcon.src = `assets/${game.gameBoard.userFighter}1.png`;
   userFighterIcon.alt = `User's Fighter: ${game.gameBoard.userFighter}`;
+  userFighterLabel.innerHTML = `${game.gameBoard.userFighter}`;
+  computerFighterIcon.src = `assets/${game.gameBoard.computerFighter}1.png`;
   computerFighterIcon.alt = `Computer's Fighter: ${game.gameBoard.computerFighter}`;
+  computerFighterLabel.innerHTML = `${game.gameBoard.computerFighter}`;
 
   hide(fighterContainer);
   show(chosenFightersContainer);
+  hide(changeGameButton);
+
   setTimeout(function () {
     hide(winnerMessage);
     displayChooseFighterView(game.gameType);
     show(changeGameButton);
-  }, 2000);
+  }, 3000);
 }
 
 function displayChooseFighterView(gameType) {
