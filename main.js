@@ -10,13 +10,10 @@ var changeGameButton = document.querySelector('.change-game-button');
 var userWinsDisplayed = document.querySelector('.user-wins');
 var computerWinsDisplayed = document.querySelector('.computer-wins');
 var chosenFightersContainer = document.querySelector('.chosen-fighters-container');
-// var rockIcon = document.getElementById("rockIcon");
-// var paperIcon = document.getElementById("paperIcon");
-// var scissorsIcon = document.getElementById("scissorsIcon");
 
 // Global Variables
 
-var winner = "";
+var winner;
 var user = {};
 var computer = {};
 var gameType;
@@ -33,9 +30,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 gameModeContainer.addEventListener('click', function (event) {
   var clickedGameMode = event.target.closest('.game-mode-button');
-  if(clickedGameMode) {
-  gameType = assignGameType(event.target);
-  displayChooseFighterView(gameType)
+  if (clickedGameMode) {
+    gameType = assignGameType(event.target);
+    console.log(gameType)
+    displayChooseFighterView(gameType)
   }
 });
 
@@ -43,9 +41,10 @@ fighterContainer.addEventListener('click', function (event) {
   var clickedFighter = event.target.closest('.choose-fighter-button');
   if (clickedFighter) {
     createGame(user, computer, gameBoard, gameType, clickedFighter);
-    checkWinConditions(game);
-    updateDisplay();
+    determineWinner(game);
+    addWins(winner);
     displayChosenFighters(game);
+    updateDisplay();
     resetGameBoard();
   }
 });
@@ -54,7 +53,7 @@ changeGameButton.addEventListener('click', function () {
   displayHomeView();
 });
 
-// Data Model / Gameplay Functions
+// Data Model & Gameplay Functions
 
 function createPlayer(name, token, wins = 0) {
   var player = {
@@ -68,28 +67,10 @@ function createPlayer(name, token, wins = 0) {
 function assignGameType(target) {
   if (target.closest('#classicGameButton')) {
     return 'Classic';
-  } else if (target.closest('#variantGameButton')) {
-    return 'Variant';
+  } else if (target.closest('#crazyGameButton')) {
+    return 'Crazy';
   }
 }
-
-function createGameBoard(gameType) {
-  if (gameType === 'Classic') {
-    gameBoard = {
-      fighters: ['rock', 'paper', 'scissors'],
-      userFighter: "",
-      computerFighter: ""
-    }
-  } else if (gameType === 'Variant') {
-    gameBoard = {
-      fighters: ['rock', 'paper', 'scissors', 'whatever'],
-      userFighter: "",
-      computerFighter: ""
-    }
-  }
-  return gameBoard;
-}
-
 
 function createGame(user, computer, gameBoard, gameType, clickedFighter) {
   gameBoard = createGameBoard(gameType)
@@ -101,6 +82,23 @@ function createGame(user, computer, gameBoard, gameType, clickedFighter) {
   }
   selectFighters(clickedFighter, game);
   return game;
+}
+
+function createGameBoard(gameType) {
+  if (gameType === 'Classic') {
+    gameBoard = {
+      fighters: ['rock', 'paper', 'scissors'],
+      userFighter: "",
+      computerFighter: ""
+    }
+  } else if (gameType === 'Crazy') {
+    gameBoard = {
+      fighters: ['rock', 'paper', 'scissors', 'lizard', 'spock'],
+      userFighter: "",
+      computerFighter: ""
+    }
+  }
+  return gameBoard;
 }
 
 function selectFighters(clickedFighter, game) {
@@ -118,70 +116,105 @@ function generateComputerFighter(game) {
   game.gameBoard.computerFighter = game.gameBoard.fighters[Math.floor(Math.random() * game.gameBoard.fighters.length)];
 }
 
-function checkWinConditions(game) {
+function determineWinner(game) {
   if (
     (game.gameBoard.userFighter === 'rock' && game.gameBoard.computerFighter === 'scissors') ||
+    (game.gameBoard.userFighter === 'rock' && game.gameBoard.computerFighter === 'lizard') ||
+    (game.gameBoard.userFighter === 'paper' && game.gameBoard.computerFighter === 'rock') ||
+    (game.gameBoard.userFighter === 'paper' && game.gameBoard.computerFighter === 'spock') ||
     (game.gameBoard.userFighter === 'scissors' && game.gameBoard.computerFighter === 'paper') ||
-    (game.gameBoard.userFighter === 'paper' && game.gameBoard.computerFighter === 'rock')
+    (game.gameBoard.userFighter === 'scissors' && game.gameBoard.computerFighter === 'lizard') ||
+    (game.gameBoard.userFighter === 'lizard' && game.gameBoard.computerFighter === 'paper') ||
+    (game.gameBoard.userFighter === 'lizard' && game.gameBoard.computerFighter === 'spock') ||
+    (game.gameBoard.userFighter === 'spock' && game.gameBoard.computerFighter === 'rock') ||
+    (game.gameBoard.userFighter === 'spock' && game.gameBoard.computerFighter === 'scissors')
   ) {
     winner = user;
   } else if (
     (game.gameBoard.computerFighter === 'rock' && game.gameBoard.userFighter === 'scissors') ||
+    (game.gameBoard.computerFighter === 'rock' && game.gameBoard.userFighter === 'lizard') ||
+    (game.gameBoard.computerFighter === 'paper' && game.gameBoard.userFighter === 'rock') ||
+    (game.gameBoard.computerFighter === 'paper' && game.gameBoard.userFighter === 'spock') ||
     (game.gameBoard.computerFighter === 'scissors' && game.gameBoard.userFighter === 'paper') ||
-    (game.gameBoard.computerFighter === 'paper' && game.gameBoard.userFighter === 'rock')
+    (game.gameBoard.computerFighter === 'scissors' && game.gameBoard.userFighter === 'lizard') ||
+    (game.gameBoard.computerFighter === 'lizard' && game.gameBoard.userFighter === 'paper') ||
+    (game.gameBoard.computerFighter === 'lizard' && game.gameBoard.userFighter === 'spock') ||
+    (game.gameBoard.computerFighter === 'spock' && game.gameBoard.userFighter === 'rock') ||
+    (game.gameBoard.computerFighter === 'spock' && game.gameBoard.userFighter === 'scissors')
   ) {
     winner = computer;
   } else {
-    determineDraw();
+    winner = determineDraw();
   }
-  if (winner) {
-    addWins(winner);
-  }
+  return winner;
 }
 
-function addWins(player) {
-  player.wins++
+function addWins(winner) {
+  if (winner) {
+    winner.wins++
+  }
 }
 
 function determineDraw() {
-  winner = null;
+  return null;
 }
 
 function resetGameBoard() {
   gameBoard = {};
   game = {};
 }
-
-function toggle(element) {
-  element.classList.toggle('hidden');
-}
-function show(element) {
-  element.classList.remove('hidden');
-}
-
-function hide(element) {
-  element.classList.add('hidden')
-}
+// Display & Update DOM functions 
 
 function displayChosenFighters(game) {
   var userFighterIcon = document.getElementById('userFighterIcon');
   var computerFighterIcon = document.getElementById('computerFighterIcon');
   var chosenFightersContainer = document.getElementById('chosenFightersContainer');
+  var userFighterLabel = document.getElementById('user-fighter-label');
+  var computerFighterLabel = document.getElementById('computer-fighter-label')
 
-  userFighterIcon.src = `assets/${game.gameBoard.userFighter}.png`;
-  computerFighterIcon.src = `assets/${game.gameBoard.computerFighter}.png`;
+  userFighterIcon.src = `assets/${game.gameBoard.userFighter}1.png`;
   userFighterIcon.alt = `User's Fighter: ${game.gameBoard.userFighter}`;
+  userFighterLabel.innerHTML = `${game.gameBoard.userFighter}`;
+  computerFighterIcon.src = `assets/${game.gameBoard.computerFighter}1.png`;
   computerFighterIcon.alt = `Computer's Fighter: ${game.gameBoard.computerFighter}`;
-  
+  computerFighterLabel.innerHTML = `${game.gameBoard.computerFighter}`;
+
   hide(fighterContainer);
   show(chosenFightersContainer);
+  hide(changeGameButton);
+
   setTimeout(function () {
     hide(winnerMessage);
     displayChooseFighterView(game.gameType);
     show(changeGameButton);
-  }, 2000);
+  }, 3000);
 }
 
+function displayChooseFighterView(gameType) {
+  var lizardButton = document.getElementById('lizardButton');
+  var spockButton = document.getElementById('spockButton');
+  if (gameType === 'Classic') {
+    hide(lizardButton);
+    hide(spockButton);
+    hide(changeGameButton);
+    hide(chooseModeMessage);
+    hide(gameModeContainer);
+    hide(chosenFightersContainer);
+    hide(winnerMessage);
+    show(fighterContainer);
+    show(chooseFighterMessage);
+  } else if (gameType === 'Crazy') {
+    show(lizardButton);
+    show(spockButton);
+    hide(changeGameButton);
+    hide(chooseModeMessage);
+    hide(gameModeContainer);
+    hide(chosenFightersContainer);
+    hide(winnerMessage);
+    show(fighterContainer);
+    show(chooseFighterMessage);
+  }
+}
 
 function updateDisplay() {
   displayWinTotal(user, computer);
@@ -195,11 +228,11 @@ function displayWinTotal(user, computer) {
 
 function displayWinnerMessage() {
   if (winner === user) {
-    winnerMessage.innerHTML = `<p class="winner-message">${user.token}${user.name} won this round!${user.token}</p>`
+    winnerMessage.innerHTML = `<p class="winner-message">${user.token} ${user.name.toUpperCase()} WON THIS ROUND! ${user.token}</p>`
   } else if (winner === computer) {
-    winnerMessage.innerHTML = `<p class="winner-message">${computer.token}${computer.name} won this round!${computer.token}</p>`
-  } else if (winner === null) {
-    winnerMessage.innerHTML = `<p class="winner-message">🥹It's a draw!🥹<p>`;
+    winnerMessage.innerHTML = `<p class="winner-message">${computer.token} ${computer.name.toUpperCase()} WON THIS ROUND! ${computer.token}</p>`
+  } else if (!winner) {
+    winnerMessage.innerHTML = `<p class="winner-message">🥹 IT'S A DRAW! 🥹<p>`;
   }
   hide(chooseFighterMessage);
   show(winnerMessage);
@@ -214,15 +247,12 @@ function displayHomeView() {
   show(chooseModeMessage);
   show(gameModeContainer);
 }
+// View Helper Functions
 
-function displayChooseFighterView(gameType) {
-  if (gameType === 'Classic') {
-    hide(changeGameButton);
-    hide(chooseModeMessage);
-    hide(gameModeContainer);
-    hide(chosenFightersContainer);
-    hide(winnerMessage);
-    show(fighterContainer);
-    show(chooseFighterMessage);
-  }
+function show(element) {
+  element.classList.remove('hidden');
+}
+
+function hide(element) {
+  element.classList.add('hidden')
 }
