@@ -123,6 +123,13 @@ main {
   overflow: hidden;
 }
 
+#userTextInputs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 /* HEADERS & TEXT */
 
 .main-title {
@@ -158,7 +165,7 @@ main {
   padding-top: 8px;
 }
 
-.player-emoji {
+.player-info {
   text-align: center;
   font-size: 5vmin;
   padding-top: 8vh;
@@ -213,7 +220,8 @@ main {
   color: #FFFFFF;
 }
 
-.change-game-button {
+.change-button {
+  margin: 20px;
   padding: 20px 10px 20px 10px;
   color: #FFFFFF;
   background-color: #475376;
@@ -221,7 +229,7 @@ main {
   font-size: 2.5vmin;
 }
 
-.change-game-button:hover {
+.change-button:hover {
   padding: 15px;
   cursor: pointer;
   color: #475376;
@@ -263,6 +271,15 @@ main {
   margin: 20px 60px;
 }
 
+.user-name-input {
+  
+  margin-top: 20px;
+  padding: 10px 10px;
+  font-size: 1rem;
+  color: #505050;
+  background-color: #FFFFFF;
+  font-family: 'Luckiest Guy';
+}
 /* HIDDEN */
 
 .hidden {
