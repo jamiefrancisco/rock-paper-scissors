@@ -8,7 +8,12 @@ var messageContainer = document.querySelector('.message-container');
 var chooseModeMessage = document.querySelector('.choose-mode-message');
 var chooseFighterMessage = document.querySelector('.choose-fighter-message');
 var winnerMessage = document.querySelector('.winner-message');
-var changeGameButton = document.querySelector('.change-game-button');
+var changeUserButton = document.getElementById('changeUserButton');
+var userSubmitButton = document.getElementById('userSubmitButton');
+var userTextInputs = document.getElementById('userTextInputs');
+var userNameInput = document.getElementById('userNameInput');
+var userName = document.querySelector('.user-name');
+var changeGameButton = document.getElementById('changeGameButton');
 var userWinsDisplayed = document.querySelector('.user-wins');
 var computerWinsDisplayed = document.querySelector('.computer-wins');
 var chosenFightersContainer = document.querySelector('.chosen-fighters-container');
@@ -19,7 +24,7 @@ var computerFighterLabel = document.getElementById('computerFighterLabel');
 
 // Global Variables
 
-var winner;
+var inputName;
 var user = {};
 var computer = {};
 var gameType;
@@ -27,15 +32,16 @@ var gameBoard = {};
 var game = {};
 var userFighter;
 var computerFighter;
+var winner;
 
 // Event Listeners
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
   user = createPlayer('User', '🙋‍♀️');
   computer = createPlayer('Computer', '💻');
 });
 
-gameModeContainer.addEventListener('click', function (event) {
+gameModeContainer.addEventListener('click', function(event) {
   var clickedGameMode = event.target.closest('.game-mode-button');
   if (clickedGameMode) {
     gameType = assignGameType(event.target);
@@ -43,7 +49,7 @@ gameModeContainer.addEventListener('click', function (event) {
   }
 });
 
-fighterContainer.addEventListener('click', function (event) {
+fighterContainer.addEventListener('click', function(event) {
   var clickedFighter = event.target.closest('.choose-fighter-button');
   if (clickedFighter) {
     createGame(user, computer, gameBoard, gameType, clickedFighter);
@@ -55,19 +61,35 @@ fighterContainer.addEventListener('click', function (event) {
   }
 });
 
-changeGameButton.addEventListener('click', function () {
+changeUserButton.addEventListener('click', function() {
+displayUserInputFields();
+});
+
+userSubmitButton.addEventListener('click', function() {
+  changeUser();
+  displayUser();
+});
+
+ changeGameButton.addEventListener('click', function() {
   displayHomeView();
 });
 
 // Data Model & Gameplay Functions
 
-function createPlayer(name, token, wins = 0) {
+function createPlayer(name, emoji) {
   var player = {
     name: name,
-    token: token,
-    wins: wins,
+    emoji: emoji,
+    wins: 0,
   }
   return player;
+}
+
+function changeUser() {
+  inputName = userNameInput.value.trim();
+  user = createPlayer(inputName, '🙋‍♀️');
+  user.wins = 0;
+  computer.wins = 0;
 }
 
 function assignGameType(target) {
@@ -198,6 +220,13 @@ function updateDisplay() {
   displayWinnerMessage();
 }
 
+function displayUser() {
+  userName.innerText = inputName;
+  displayWinTotal(user, computer);
+  hide(userNameInput);
+  hide(userSubmitButton);
+ }
+
 function displayWinTotal(user, computer) {
   userWinsDisplayed.innerHTML = `Wins: ${user.wins}`;
   computerWinsDisplayed.innerHTML = `Wins: ${computer.wins}`;
@@ -205,9 +234,9 @@ function displayWinTotal(user, computer) {
 
 function displayWinnerMessage() {
   if (winner === user) {
-    winnerMessage.innerHTML = `<p class="winner-message">${user.token} ${user.name.toUpperCase()} WON THIS ROUND! ${user.token}</p>`
+    winnerMessage.innerHTML = `<p class="winner-message">${user.emoji} ${user.name.toUpperCase()} WON THIS ROUND! ${user.emoji}</p>`
   } else if (winner === computer) {
-    winnerMessage.innerHTML = `<p class="winner-message">${computer.token} ${computer.name.toUpperCase()} WON THIS ROUND! ${computer.token}</p>`
+    winnerMessage.innerHTML = `<p class="winner-message">${computer.emoji} ${computer.name.toUpperCase()} WON THIS ROUND! ${computer.emoji}</p>`
   } else if (!winner) {
     winnerMessage.innerHTML = `<p class="winner-message">🥹 IT'S A DRAW! 🥹<p>`;
   }
@@ -257,4 +286,10 @@ function displayHomeView() {
   hide(winnerMessage);
   show(chooseModeMessage);
   show(gameModeContainer);
+}
+
+function displayUserInputFields() {
+  show(userTextInputs);
+  show(userNameInput);
+  show(userSubmitButton);
 }

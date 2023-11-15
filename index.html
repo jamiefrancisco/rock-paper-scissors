@@ -14,12 +14,18 @@
 
 <body>
   <aside class="user-player-container">
-    <div class="player-emoji">
-      🙋‍♀️<br>
-      User
+    <div class="player-info">
+      <span class="user-emoji">🙋‍♀️</span>
+      <br>
+      <span class="user-name">User</span>
     </div>
-    <p class="user-wins">Wins: 0</p>
-    <button type="button" class="change-game-button hidden">CHANGE GAME?</button>
+      <p class="user-wins">Wins: 0</p>
+    <button type="button" class="change-button" id="changeUserButton">CHANGE USER?</button>
+    <div id="userTextInputs" class="hidden">
+      <input type="text" class="user-name-input hidden" id="userNameInput" placeholder="ENTER YOUR NAME">
+      <button type="button" class="change-button hidden" id="userSubmitButton">SUBMIT</button>
+    </div>
+    <button type="button" class="change-button hidden" id="changeGameButton">CHANGE GAME?</button>
   </aside>
   <main>
     <header class="main-title">
@@ -130,7 +136,7 @@
     </section>
   </main>
   <aside class="computer-player-container">
-    <div class="player-emoji">
+    <div class="player-info">
       💻<br>
       Computer
     </div>
