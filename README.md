@@ -11,6 +11,7 @@ Clone the repository to your local machine. The user can then interact with the 
 ### Preview of App:
 
 ![Rock, Paper, Scissors Example](<Rock, Paper, Scissors.png>)
+[Play it here!](https://jamiefrancisco.github.io/rock-paper-scissors/)
 
 ### Context:
 
